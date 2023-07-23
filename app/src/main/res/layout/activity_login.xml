@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/login_applogo"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"
+        android:src="@drawable/applogo"
+        />
+
+    <EditText
+        android:id="@+id/login_phone_number_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_applogo"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:padding="10dp"
+        android:textSize="25sp"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="false"
+        android:textColorHint="@color/colorPrimary"
+        android:hint="@string/prompt_phn_number"
+        android:inputType="number"
+        android:background="@drawable/input_design"
+        />
+
+    <EditText
+        android:id="@+id/login_password_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_phone_number_input"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:padding="10dp"
+        android:textSize="25sp"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textColorHint="@color/colorPrimary"
+        android:hint="@string/prompt_password"
+        android:inputType="textPassword"
+        android:background="@drawable/input_design"
+        />
+
+    <LinearLayout
+        android:id="@+id/linear_layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_password_input"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        >
+        
+        <com.rey.material.widget.CheckBox
+            android:id="@+id/remember_me_chkb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            style="@style/Material.Drawable.CheckBox"
+            app:cbd_strokeColor = "@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:text="@string/remember_me"
+            android:textSize="18sp"
+            />
+        <!-- One way to align textview to the right in linearlayout:
+            Put an emty view with width = 0dp and height = 0dp and weight = 1
+            Also, set android:gravity="right"
+        -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:id="@+id/forget_password_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="3dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/forget_password"
+            />
+
+        <!-- Below is another way to align textview to the right in linearlayout.
+            Just set android:layout_width="fill_parent" and android:gravity="right"
+        <TextView
+            android:id="@+id/forget_password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingRight="3dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/forget_password"
+            />
+        -->
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_layout_1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:padding="10dp"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:text="@string/action_login_short"
+        android:background="@drawable/buttons"
+        />
+
+    <TextView
+        android:id="@+id/admin_panel_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_btn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="15dp"
+        android:padding="5dp"
+        android:text="@string/admin_an_admin"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        />
+
+    <TextView
+        android:id="@+id/not_admin_panel_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_btn"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:padding="5dp"
+        android:text="@string/admin_not_an_admin"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        />
+
+</RelativeLayout>

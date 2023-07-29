@@ -19,4 +19,15 @@
     <string name="forget_password">Forget Password?</string>
     <string name="admin_an_admin">I\'m an Admin?</string>
     <string name="admin_not_an_admin">I\'m not an Admin?</string>
+
+    <!-- Register activity Strings -->
+    <string name="msg_register_name">Please write your name...</string>
+    <string name="msg_register_phone_number">Please write your phone number...</string>
+    <string name="msg_register_password">Please write your password...</string>
+    <string name="msg_register_success">Congratulations, your account has been created.</string>
+    <string name="msg_register_network_error">Network Error: Please try again after some time...</string>
+    <string name="msg_register_try_again">Please try again using another phone number.</string>
+    <string name="msg_register_loadingbar_title">Create Account</string>
+    <string name="msg_register_loadingbar_wait_msg">Please wait, while we are checking the credentials.</string>
+
 </resources>

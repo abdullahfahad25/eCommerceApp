@@ -1,20 +1,21 @@
 {
   "project_info": {
-    "project_number": "1031200162436",
-    "project_id": "ecommerce-fc7e6",
-    "storage_bucket": "ecommerce-fc7e6.appspot.com"
+    "project_number": "118100706404",
+    "firebase_url": "https://ecommerce-7e79f-default-rtdb.firebaseio.com",
+    "project_id": "ecommerce-7e79f",
+    "storage_bucket": "ecommerce-7e79f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1031200162436:android:ad410600ccac20be96f8d1",
+        "mobilesdk_app_id": "1:118100706404:android:3c31540360596ce6284b71",
         "android_client_info": {
           "package_name": "com.example.fahad.ecommerce"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1031200162436-qnie26u7a57q3t6aqi5gbcbb4t6a3c5o.apps.googleusercontent.com",
+          "client_id": "118100706404-iqs5qtcopmdhndovmtmtgb5advnut18a.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.fahad.ecommerce",
@@ -22,20 +23,20 @@
           }
         },
         {
-          "client_id": "1031200162436-kfgfd7ad20b9ndku9n06mu3pqf9aumog.apps.googleusercontent.com",
+          "client_id": "118100706404-p8mp8gn6ias2a72dvgj94k5ammaqk6f2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBAuQ5z_Ctx3Zp1qgEEUKSZODGgJkLme_o"
+          "current_key": "AIzaSyDGTAAXjK9AiUTZzYkI-f6aCNjSuTGhHqw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1031200162436-kfgfd7ad20b9ndku9n06mu3pqf9aumog.apps.googleusercontent.com",
+              "client_id": "118100706404-p8mp8gn6ias2a72dvgj94k5ammaqk6f2.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

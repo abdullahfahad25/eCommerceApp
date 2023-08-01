@@ -10,6 +10,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.fahad.ecommerce.RegisterActivity;
+import com.example.fahad.ecommerce.data.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -54,13 +55,39 @@ public class Database {
                         }
                     });
                 } else {
-                    completeListener.onExistsAlready(phone);
+                    completeListener.onExistance(phone);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.e(TAG, "DB Error. msg: " + error.getMessage());
+                completeListener.onCancelled(error.getMessage());
+            }
+        });
+    }
+
+    public void login(RegisterActivity.onCompleteListener completeListener, final String phone, final String password) {
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child(DB_TABLE_USERS).child(phone).exists()) {
+                    User user = snapshot.child(DB_TABLE_USERS).child(phone).getValue(User.class);
+
+                    if (user.getPhone().equals(phone)) {
+                        if (user.getPassword().equals(password)) {
+                            completeListener.onSuccess();
+                        } else {
+                            completeListener.onFailed();
+                        }
+                    }
+                } else {
+                    completeListener.onExistance(phone);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
                 completeListener.onCancelled(error.getMessage());
             }
         });

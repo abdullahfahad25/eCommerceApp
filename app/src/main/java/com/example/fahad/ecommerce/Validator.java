@@ -28,4 +28,14 @@ public class Validator {
             return NO_EMPTY;
         }
     }
+
+    public String validateLogin(String phone, String password) {
+        if (TextUtils.isEmpty(phone)) {
+            return PHONE_NUMBER;
+        } else if (TextUtils.isEmpty(password)) {
+            return PASSWORD;
+        } else {
+            return NO_EMPTY;
+        }
+    }
 }

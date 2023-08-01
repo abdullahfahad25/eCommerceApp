@@ -16,4 +16,8 @@ public class Constants {
     public static final String PASSWORD = "password";
     public static final String NO_EMPTY = "no empty";
 
+    //Loading Bar related
+    public static final String REGISTRATION = "registration";
+    public static final String LOGIN = "login";
+
 }

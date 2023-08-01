@@ -1,8 +1,8 @@
 package com.example.fahad.ecommerce;
 
 import static com.example.fahad.ecommerce.utils.Constants.NO_EMPTY;
+import static com.example.fahad.ecommerce.utils.Constants.REGISTRATION;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -17,15 +17,6 @@ import android.widget.Toast;
 import com.example.fahad.ecommerce.data.Database;
 import com.example.fahad.ecommerce.utils.ProgressDialogUtil;
 import com.example.fahad.ecommerce.utils.RegistrationToast;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -44,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
     public interface onCompleteListener {
         void onSuccess();
         void onFailed();
-        void onExistsAlready(String phone);
+        void onExistance(String phone);
 
         void onCancelled(String msg);
     }
@@ -53,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onSuccess() {
             Toast.makeText(RegisterActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
-            ProgressDialogUtil.dismissRegistrationLoadingBar();
+            ProgressDialogUtil.dismissLoadingBar();
 
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -61,14 +52,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         @Override
         public void onFailed() {
-            ProgressDialogUtil.dismissRegistrationLoadingBar();
+            ProgressDialogUtil.dismissLoadingBar();
             Toast.makeText(RegisterActivity.this, "Network Error: Please try again after some time...", Toast.LENGTH_SHORT).show();
         }
 
         @Override
-        public void onExistsAlready(String phone) {
+        public void onExistance(String phone) {
             Toast.makeText(RegisterActivity.this, "This " + phone + " already exists.", Toast.LENGTH_SHORT).show();
-            ProgressDialogUtil.dismissRegistrationLoadingBar();
+            ProgressDialogUtil.dismissLoadingBar();
             Toast.makeText(RegisterActivity.this, "Please try again using another phone number.", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
@@ -77,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         @Override
         public void onCancelled(String msg) {
-            ProgressDialogUtil.dismissRegistrationLoadingBar();
+            ProgressDialogUtil.dismissLoadingBar();
             Toast.makeText(RegisterActivity.this, "onCancelled!! error: " + msg, Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
@@ -119,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (!TextUtils.equals(response, NO_EMPTY)) {
             RegistrationToast.showToast(getApplicationContext(), response);
         } else {
-            ProgressDialogUtil.showRegistrationLoadingBar(RegisterActivity.this);
+            ProgressDialogUtil.showRegistrationLoadingBar(RegisterActivity.this, REGISTRATION);
             db.register(completeListener, name, phone, password);
         }
     }

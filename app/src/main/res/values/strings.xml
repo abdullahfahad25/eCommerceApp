@@ -30,4 +30,7 @@
     <string name="msg_register_loadingbar_title">Create Account</string>
     <string name="msg_register_loadingbar_wait_msg">Please wait, while we are checking the credentials.</string>
 
+    <!-- Login activity strings -->
+    <string name="msg_login_loadingbar_title">Login Account</string>
+
 </resources>

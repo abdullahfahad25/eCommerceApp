@@ -15,8 +15,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.fahad.ecommerce.data.Database;
+import com.example.fahad.ecommerce.prevalent.Prevalent;
 import com.example.fahad.ecommerce.utils.LoginToast;
 import com.example.fahad.ecommerce.utils.ProgressDialogUtil;
+import com.rey.material.widget.CheckBox;
+
+import io.paperdb.Paper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -29,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     private Database db;
 
     private ProgressDialog loadingBar;
+
+    private CheckBox chkBoxRememberMe;
 
     private RegisterActivity.onCompleteListener completeListener = new RegisterActivity.onCompleteListener() {
         @Override
@@ -72,6 +78,9 @@ public class LoginActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.login_password_input);
         loginBtn = findViewById(R.id.login_btn);
 
+        chkBoxRememberMe = findViewById(R.id.remember_me_chkb);
+        Paper.init(this);
+
         loadingBar = new ProgressDialog(this);
 
         validator = new Validator(this);
@@ -90,6 +99,12 @@ public class LoginActivity extends AppCompatActivity {
             LoginToast.showToast(LoginActivity.this, response);
         } else {
             ProgressDialogUtil.showRegistrationLoadingBar(LoginActivity.this, LOGIN);
+
+            if(chkBoxRememberMe.isChecked()) {
+                Paper.book().write(Prevalent.UserPhoneKey, phone);
+                Paper.book().write(Prevalent.UserPasswordKey, password);
+            }
+
             db.login(completeListener, phone, password);
         }
     }

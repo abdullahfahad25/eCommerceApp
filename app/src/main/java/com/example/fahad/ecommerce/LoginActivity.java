@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fahad.ecommerce.data.Database;
@@ -36,7 +37,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private CheckBox chkBoxRememberMe;
 
-    private RegisterActivity.onCompleteListener completeListener = new RegisterActivity.onCompleteListener() {
+    private TextView adminLink;
+    private TextView notAdminLink;
+
+    private RegisterActivity.onCompleteListener userOnCompleteListener = new RegisterActivity.onCompleteListener() {
         @Override
         public void onSuccess() {
             Toast.makeText(LoginActivity.this, "logged in Successfully...", Toast.LENGTH_SHORT).show();
@@ -62,12 +66,46 @@ public class LoginActivity extends AppCompatActivity {
         public void onCancelled(String msg) {}
     };
 
-    private View.OnClickListener loginAccOnClickListener = new View.OnClickListener() {
+    private RegisterActivity.onCompleteListener adminOnCompleteListener = new RegisterActivity.onCompleteListener() {
+        @Override
+        public void onSuccess() {
+            Toast.makeText(LoginActivity.this, "Welcome Admin, You are logged in Successfully...", Toast.LENGTH_SHORT).show();
+            ProgressDialogUtil.dismissLoadingBar();
+
+            Intent intent = new Intent(LoginActivity.this, AdminAddNewProductActivity.class);
+            startActivity(intent);
+        }
+
+        @Override
+        public void onFailed() {
+            ProgressDialogUtil.dismissLoadingBar();
+            Toast.makeText(LoginActivity.this, "Admin Password is incorrect.", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onExistance(String phone) {
+            Toast.makeText(LoginActivity.this, "Admin Account with this " + phone + " number do not exists.", Toast.LENGTH_SHORT).show();
+            ProgressDialogUtil.dismissLoadingBar();
+        }
+
+        @Override
+        public void onCancelled(String msg) {}
+    };
+
+    private View.OnClickListener loginUserAccOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            loginAccount();
+            loginUserAccount();
         }
     };
+
+    private View.OnClickListener loginAdminAccOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            loginAdminAccount();
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +115,8 @@ public class LoginActivity extends AppCompatActivity {
         inputPhoneNumber = findViewById(R.id.login_phone_number_input);
         inputPassword = findViewById(R.id.login_password_input);
         loginBtn = findViewById(R.id.login_btn);
+        adminLink = findViewById(R.id.admin_panel_link);
+        notAdminLink = findViewById(R.id.not_admin_panel_link);
 
         chkBoxRememberMe = findViewById(R.id.remember_me_chkb);
         Paper.init(this);
@@ -86,10 +126,32 @@ public class LoginActivity extends AppCompatActivity {
         validator = new Validator(this);
         db = Database.getInstance();
 
-        loginBtn.setOnClickListener(loginAccOnClickListener);
+        loginBtn.setOnClickListener(loginUserAccOnClickListener);
+
+        adminLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginBtn.setText("Login Admin");
+                adminLink.setVisibility(View.INVISIBLE);
+                notAdminLink.setVisibility(View.VISIBLE);
+
+                loginBtn.setOnClickListener(loginAdminAccOnClickListener);
+            }
+        });
+
+        notAdminLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginBtn.setText("Login");
+                adminLink.setVisibility(View.VISIBLE);
+                notAdminLink.setVisibility(View.INVISIBLE);
+
+                loginBtn.setOnClickListener(loginUserAccOnClickListener);
+            }
+        });
     }
 
-    private void loginAccount() {
+    private void loginUserAccount() {
         String phone = inputPhoneNumber.getText().toString();
         String password = inputPassword.getText().toString();
 
@@ -98,14 +160,34 @@ public class LoginActivity extends AppCompatActivity {
         if (!TextUtils.equals(response, NO_EMPTY)) {
             LoginToast.showToast(LoginActivity.this, response);
         } else {
-            ProgressDialogUtil.showRegistrationLoadingBar(LoginActivity.this, LOGIN);
+            ProgressDialogUtil.showLoadingBar(LoginActivity.this, LOGIN);
 
             if(chkBoxRememberMe.isChecked()) {
                 Paper.book().write(Prevalent.UserPhoneKey, phone);
                 Paper.book().write(Prevalent.UserPasswordKey, password);
             }
 
-            db.login(completeListener, phone, password);
+            db.loginUser(userOnCompleteListener, phone, password);
+        }
+    }
+
+    private void loginAdminAccount() {
+        String phone = inputPhoneNumber.getText().toString();
+        String password = inputPassword.getText().toString();
+
+        String response = validator.validateLogin(phone, password);
+
+        if (!TextUtils.equals(response, NO_EMPTY)) {
+            LoginToast.showToast(LoginActivity.this, response);
+        } else {
+            ProgressDialogUtil.showLoadingBar(LoginActivity.this, LOGIN);
+
+            if(chkBoxRememberMe.isChecked()) {
+                Paper.book().write(Prevalent.UserPhoneKey, phone);
+                Paper.book().write(Prevalent.UserPasswordKey, password);
+            }
+
+            db.loginAdmin(adminOnCompleteListener, phone, password);
         }
     }
 }

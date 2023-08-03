@@ -13,7 +13,7 @@ public class ProgressDialogUtil {
 
     private ProgressDialogUtil() {}
 
-    public static void showRegistrationLoadingBar(Context context, String type) {
+    public static void showLoadingBar(Context context, String type) {
         loadingBar = new ProgressDialog(context);
 
         if (TextUtils.equals(type, REGISTRATION)) {

@@ -1,5 +1,6 @@
 package com.example.fahad.ecommerce.data;
 
+import static com.example.fahad.ecommerce.utils.Constants.DB_TABLE_ADMINS;
 import static com.example.fahad.ecommerce.utils.Constants.DB_TABLE_USERS;
 import static com.example.fahad.ecommerce.utils.Constants.DB_USERS_COLUMN_NAME;
 import static com.example.fahad.ecommerce.utils.Constants.DB_USERS_COLUMN_PASSWORD;
@@ -67,12 +68,38 @@ public class Database {
         });
     }
 
-    public void login(RegisterActivity.onCompleteListener completeListener, final String phone, final String password) {
+    public void loginUser(RegisterActivity.onCompleteListener completeListener, final String phone, final String password) {
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(DB_TABLE_USERS).child(phone).exists()) {
                     User user = snapshot.child(DB_TABLE_USERS).child(phone).getValue(User.class);
+
+                    if (user.getPhone().equals(phone)) {
+                        if (user.getPassword().equals(password)) {
+                            completeListener.onSuccess();
+                        } else {
+                            completeListener.onFailed();
+                        }
+                    }
+                } else {
+                    completeListener.onExistance(phone);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                completeListener.onCancelled(error.getMessage());
+            }
+        });
+    }
+
+    public void loginAdmin(RegisterActivity.onCompleteListener completeListener, final String phone, final String password) {
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child(DB_TABLE_ADMINS).child(phone).exists()) {
+                    User user = snapshot.child(DB_TABLE_ADMINS).child(phone).getValue(User.class);
 
                     if (user.getPhone().equals(phone)) {
                         if (user.getPassword().equals(password)) {

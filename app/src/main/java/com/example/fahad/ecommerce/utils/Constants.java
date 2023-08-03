@@ -9,6 +9,7 @@ public class Constants {
     public static final String DB_USERS_COLUMN_PHONE = "phone";
     public static final String DB_USERS_COLUMN_PASSWORD = "password";
     public static final String DB_USERS_COLUMN_NAME = "name";
+    public static final String DB_TABLE_ADMINS = "Admins";
 
     //Validation Related
     public static final String NAME = "name";

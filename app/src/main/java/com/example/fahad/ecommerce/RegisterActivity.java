@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (!TextUtils.equals(response, NO_EMPTY)) {
             RegistrationToast.showToast(getApplicationContext(), response);
         } else {
-            ProgressDialogUtil.showRegistrationLoadingBar(RegisterActivity.this, REGISTRATION);
+            ProgressDialogUtil.showLoadingBar(RegisterActivity.this, REGISTRATION);
             db.register(completeListener, name, phone, password);
         }
     }
